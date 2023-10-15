@@ -50,10 +50,14 @@ class User extends Authenticatable
     }
 
     public function profiles(){
-        return $this->hasMany(Profile::class);
+        return $this->hasOne(Profile::class);
     }
 
     public function userOrganizations(){
         return $this->hasMany(UserOrganization::class);
+    }
+
+    public function addresses(){
+        return $this->hasMany(Address::class);
     }
 }
