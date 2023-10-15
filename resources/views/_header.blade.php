@@ -16,9 +16,16 @@
                 <li class="nav-item text-white">
                     <a class="nav-link text-white" href="/my-publications">My Publications</a>
                 </li>
-                <li class="nav-item text-white">
-                    <a class="nav-link text-white" href="/login">Login</a>
-                </li>
+    
+                @auth
+                    <li class="nav-item text-white">
+                        <a class="nav-link text-white" href="/login">Logout</a>
+                    </li>
+                @else
+                    <li class="nav-item text-white">
+                        <a class="nav-link text-white" href="/login">Login</a>
+                    </li>
+                @endauth
                 {{-- <li class="nav-item text-white">
                     <a class="nav-link text-lightgrey disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li> --}}

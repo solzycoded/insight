@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+use \App\Models\Title;
+use \App\Models\OrganizationType;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->seedTitle();
+        $this->seedOrganizationTypes();
+    }
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+    private function seedTitle(){
+        $titles = ['Mr', 'Mrs', 'Miss', 'Dr', 'Prof'];
+
+        foreach ($titles as $value) {
+            Title::create([
+                'name' => $value,
+            ]);
+        }
+    }
+
+    private function seedOrganizationTypes(){
+        $titles = ['Company', 'Research Institute', 'College', 'University'];
+
+        foreach ($titles as $value) {
+            OrganizationType::create([
+                'type' => $value,
+            ]);
+        }
     }
 }

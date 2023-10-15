@@ -17,7 +17,7 @@ class SessionController extends Controller
         if(Auth::attempt($attributes)){
             // to prevent an attack, via session
             session()->regenerate();
-            
+
             // go the the profile page and tell the valid user "welcome back"
             return redirect('/profile')->with('success', 'Welcome Back!');
         }
@@ -31,8 +31,8 @@ class SessionController extends Controller
     // OTHERS
     private function validateInput(){ // validate user input
         return request()->validate([
-            'email'       => 'required|email|exists:users,email',
-            'password'    => 'required|string|max:30'
+            'email'    => 'required|email|exists:users,email',
+            'password' => 'required|string|max:30'
         ]);
     }
 

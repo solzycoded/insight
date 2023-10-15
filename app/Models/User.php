@@ -18,7 +18,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'users';
     protected $guarded = [];
 
     /**
@@ -43,5 +42,18 @@ class User extends Authenticatable
     // MUTATOR
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    // CHILDREN
+    public function verifyEmails(){
+        return $this->hasOne(VerifyEmail::class);
+    }
+
+    public function profiles(){
+        return $this->hasMany(Profile::class);
+    }
+
+    public function userOrganizations(){
+        return $this->hasMany(UserOrganization::class);
     }
 }

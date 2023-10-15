@@ -28,7 +28,7 @@ class SignupController extends Controller
     }
 
     // OTHERS
-    private function validateInput(){ // validate user input
+    protected function validateInput(){ // validate user input
         return request()->validate([
             'email'       => 'required|email|unique:users,email',
             'password'    => 'required|string|max:30',
