@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AddressType extends Model
+class ManuscriptFile extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'manuscript_id', 'file'
+    ];
+
     public $timestamps = false;
 
-    public function addresses(){
-        return $this->hasMany(Address::class);
+    public function manuscript(){
+        return $this->belongsTo(Manuscript::class);
     }
 }

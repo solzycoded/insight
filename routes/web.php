@@ -8,6 +8,7 @@ use App\Http\Controllers\Account\SessionController;
 
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\UserOrganizationController;
+use App\Http\Controllers\Profile\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/', function () {
 });
 
 // GUEST USERS
-Route::middleware('guest')->group(function(){ 
+Route::middleware('guest')->group(function(){
     // SIGNUP
     Route::get('/signup', [SignupController::class, 'create']); // display the signup page
     Route::post('/signup', [SignupController::class, 'store'])->name('signup'); // send the user's details to the signup controller, to add the user to the system
@@ -58,4 +59,5 @@ Route::middleware('auth')->group(function(){
     Route::post('/organization', [UserOrganizationController::class, 'store'])->name('organization');
 
     // PUBLISH YOUR WORK (address)
+    Route::get('/publish-your-work/address', [AddressController::class, 'create']);
 });

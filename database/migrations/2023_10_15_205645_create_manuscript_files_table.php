@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('address_types', function (Blueprint $table) {
+        Schema::create('manuscript_files', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 10);
+            $table->foreignId('manuscript_id')->constrained()->cascadeOnDelete();
+            $table->text("file");
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_types');
+        Schema::dropIfExists('manuscript_files');
     }
 };

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d860e2d6ee8f9bf32f2c69d72f2fdad1",
+    "content-hash": "1af97bc8ca2d7317e2145156c1175c12",
     "packages": [
         {
             "name": "brick/math",
@@ -351,6 +351,67 @@
                 }
             ],
             "time": "2022-12-14T08:49:07+00:00"
+        },
+        {
+            "name": "dougsisk/laravel-country-state",
+            "version": "4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DougSisk/laravel-country-state.git",
+                "reference": "2e474adaf7f4560178dd997db40abf2a8c0ff4ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DougSisk/laravel-country-state/zipball/2e474adaf7f4560178dd997db40abf2a8c0ff4ca",
+                "reference": "2e474adaf7f4560178dd997db40abf2a8c0ff4ca",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.4|^8.0",
+                "rinvex/countries": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DougSisk\\CountryState\\CountryStateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DougSisk\\CountryState\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Doug Sisk",
+                    "homepage": "http://dougsisk.com"
+                }
+            ],
+            "description": "Country & state helper for Laravel.",
+            "homepage": "https://github.com/DougSisk/laravel-country-state",
+            "keywords": [
+                "countries",
+                "country",
+                "laravel",
+                "state",
+                "states"
+            ],
+            "support": {
+                "issues": "https://github.com/DougSisk/laravel-country-state/issues",
+                "source": "https://github.com/DougSisk/laravel-country-state/tree/4.2"
+            },
+            "time": "2023-01-30T22:08:21+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -1806,67 +1867,6 @@
             "time": "2023-08-05T12:09:49+00:00"
         },
         {
-            "name": "monarobase/country-list",
-            "version": "3.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Monarobase/country-list.git",
-                "reference": "b6cea987ff8a14e6fdf2aa14265675eeddc2fce5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Monarobase/country-list/zipball/b6cea987ff8a14e6fdf2aa14265675eeddc2fce5",
-                "reference": "b6cea987ff8a14e6fdf2aa14265675eeddc2fce5",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.8|^6|^7|^8|^9|^10",
-                "php": ">=5.6.0",
-                "umpirsky/country-list": "2.0.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Monarobase\\CountryList\\CountryListServiceProvider"
-                    ],
-                    "aliases": {
-                        "Countries": "Monarobase\\CountryList\\CountryListFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Monarobase\\CountryList\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Thuau",
-                    "email": "jonathan@monarobase.net",
-                    "homepage": "https://monarobase.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats for Laravel",
-            "keywords": [
-                "countries",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/Monarobase/country-list/issues",
-                "source": "https://github.com/Monarobase/country-list/tree/3.4.0"
-            },
-            "time": "2023-02-15T13:15:55+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "2.9.1",
             "source": {
@@ -3156,6 +3156,89 @@
                 }
             ],
             "time": "2023-04-15T23:01:58+00:00"
+        },
+        {
+            "name": "rinvex/countries",
+            "version": "v8.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rinvex/countries.git",
+                "reference": "b012697307453e7d9d2df25bd385904b3e2e9baf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rinvex/countries/zipball/b012697307453e7d9d2df25bd385904b3e2e9baf",
+                "reference": "b012697307453e7d9d2df25bd385904b3e2e9baf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.31.0",
+                "phpunit/phpunit": "^9.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rinvex\\Country\\Providers\\CountryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Rinvex\\Country\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "email": "help@rinvex.com",
+                    "homepage": "https://rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "email": "me@omranic.com",
+                    "homepage": "https://omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous PHP Community",
+                    "homepage": "https://github.com/rinvex/countries/contributors"
+                }
+            ],
+            "description": "Rinvex Countries is a simple and lightweight package for retrieving country details with flexibility. A whole bunch of data including name, demonym, capital, iso codes, dialling codes, geo data, currencies, flags, emoji, and other attributes for all 250 countries worldwide at your fingertips.",
+            "homepage": "https://rinvex.com",
+            "keywords": [
+                "Flexible",
+                "Simple",
+                "countries",
+                "country",
+                "currencies",
+                "demonym",
+                "dialling",
+                "emoji",
+                "flags",
+                "geographic",
+                "languages",
+                "rinvex",
+                "svg"
+            ],
+            "support": {
+                "docs": "https://github.com/rinvex/countries/blob/master/README.md",
+                "email": "help@rinvex.com",
+                "issues": "https://github.com/rinvex/countries/issues",
+                "source": "https://github.com/rinvex/countries"
+            },
+            "time": "2022-12-29T20:30:43+00:00"
         },
         {
             "name": "symfony/console",
@@ -5458,52 +5541,6 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
-        },
-        {
-            "name": "umpirsky/country-list",
-            "version": "2.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/umpirsky/country-list.git",
-                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/umpirsky/country-list/zipball/6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
-                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "slowprog/composer-copy-file": "^0.2",
-                "symfony/intl": "^4.3",
-                "umpirsky/list-generator": "^1.2"
-            },
-            "type": "library",
-            "extra": {
-                "copy-file": {
-                    "vendor/umpirsky/list-generator/Dockerfile": "./",
-                    "vendor/umpirsky/list-generator/docker-compose.yml": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Saša Stamenković",
-                    "email": "umpirsky@gmail.com"
-                }
-            ],
-            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats.",
-            "support": {
-                "issues": "https://github.com/umpirsky/country-list/issues",
-                "source": "https://github.com/umpirsky/country-list/tree/2.0.6"
-            },
-            "time": "2020-12-03T10:09:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -45,11 +45,11 @@ class User extends Authenticatable
     }
 
     // CHILDREN
-    public function verifyEmails(){
+    public function verifyEmail(){
         return $this->hasOne(VerifyEmail::class);
     }
 
-    public function profiles(){
+    public function profile(){
         return $this->hasOne(Profile::class);
     }
 
@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(UserOrganization::class);
     }
 
-    public function addresses(){
-        return $this->hasMany(Address::class);
+    public function manuscripts(){
+        return $this->hasMany(Manuscript::class);
     }
 }

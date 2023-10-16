@@ -14,7 +14,7 @@ class UserOrganizationController extends Controller
         // CHECK if the previous step (1), has already been filled, before proceeding to allow user create their organization
 
         // 1. return "true" if user has profile details, else return false and store it in "hasProfile"
-        $hasProfile = count(auth()->user()->profiles) > 0;
+        $hasProfile = isset(auth()->user()->profile->id);
 
         // 2. proceed to step 2 (organization), if user has "profile" details
         if($hasProfile){

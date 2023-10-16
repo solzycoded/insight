@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('manuscripts', function (Blueprint $table) {
             $table->id();
+            $table->text("title");
+            $table->text("abstract");
+            $table->foreignId('article_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('journal_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('address_type_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('postal_code_id')->constrained()->cascadeOnDelete();
-            $table->string("address", 200);
+            $table->timestamps();
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('manuscripts');
     }
 };
