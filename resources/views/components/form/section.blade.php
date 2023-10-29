@@ -1,7 +1,7 @@
 @props(['action', 'method' => 'GET', 'header'])
 
-<div class="d-flex align-items-center justify-content-center">
-    <div style="margin-top: 60px; max-width: 450px !important">
+<div class="d-flex align-items-center justify-content-center" style="width: 100% !important">
+    <div style="margin-top: 60px; width: inherit !important; max-width: 350px !important">
         <form action="{{ $action }}" method="{{ $method }}">
             @csrf
 

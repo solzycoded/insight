@@ -1,6 +1,5 @@
 <x-layout>
-    @include ('._header')
-
+    
     <section id="sign-up">
         <x-form.section :action="'/signup'" :method="'POST'" :header="['title' => 'Sign Up', 'description' => 'you need to signup, to pubish your work.']">
 

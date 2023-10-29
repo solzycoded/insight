@@ -8,7 +8,9 @@ use App\Http\Controllers\Account\SessionController;
 
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\UserOrganizationController;
-use App\Http\Controllers\Profile\AddressController;
+use App\Http\Controllers\Profile\UserJournalController;
+use App\Http\Controllers\Profile\ManuscriptController;
+use App\Http\Controllers\Profile\ManuscriptAuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +29,13 @@ Route::get('/', function () {
 
 // GUEST USERS
 Route::middleware('guest')->group(function(){
-    // SIGNUP
+    // SIGNUP (USE CASE controller)
     Route::get('/signup', [SignupController::class, 'create']); // display the signup page
     Route::post('/signup', [SignupController::class, 'store'])->name('signup'); // send the user's details to the signup controller, to add the user to the system
 
-    // LOGIN
+    // LOGIN (USE CASE controller)
     Route::get('/login', [LoginController::class, 'create']); // display the signup page
-    Route::post('/login', [SessionController::class, 'store'])->name('login'); // send the user's details to the signup controller, to add the user to the system
+    Route::post('/login', [LoginController::class, 'store'])->name('login'); // send the user's details to the signup controller, to add the user to the system
 
     // PUBLISH YOUR WORK (GUEST)
     Route::get('/publish-your-work', [SignupController::class, 'create']);
@@ -58,6 +60,23 @@ Route::middleware('auth')->group(function(){
     Route::get('/publish-your-work/organization', [UserOrganizationController::class, 'create']);
     Route::post('/organization', [UserOrganizationController::class, 'store'])->name('organization');
 
-    // PUBLISH YOUR WORK (address)
-    Route::get('/publish-your-work/address', [AddressController::class, 'create']);
+    // PUBLISH YOUR WORK (journal)
+    Route::get('/publish-your-work/journal', [UserJournalController::class, 'create']);
+    Route::post('/publish-your-work/journal', [UserJournalController::class, 'store']);
+
+    // PUBLISH YOUR WORK (manuscript)
+    Route::get('/publish-your-work/manuscript', [ManuscriptController::class, 'create']);
+    Route::post('/publish-your-work/manuscript', [ManuscriptController::class, 'store']);
+
+    // PUBLISH YOUR WORK (authors)
+    Route::get('/publish-your-work/authors', [ManuscriptAuthorController::class, 'create']);
+    Route::post('/publish-your-work/authors', [ManuscriptAuthorController::class, 'store']);
+
+    // MY PUBLICATIONS
+    Route::get('/my-publications', function () {
+        return view('profile.mypublications.index');
+    });
+
+    // LOGOUT
+    Route::post('/log-out', [SessionController::class, 'destroy'])->middleware('auth');
 });

@@ -1,21 +1,25 @@
 @props(['step', 'action', 'method'])
 
-<section style="padding: 30px 60px">
-    {{-- header --}}
-    <h4>
-        Publish Your Work <small class="pe-3 fw-bold">(<span style="color: grey">{{ $step }}</span> / 5)</small>
-    </h4>
+<x-layout>
+    {{-- @include ('._header') --}}
 
-    <x-profile.publishyourwork.menu />
+    <section style="padding: 30px 60px">
+        {{-- header --}}
+        <h4>
+            Publish Your Work <small class="pe-3 fw-bold">(<span style="color: grey">{{ $step }}</span> / 5)</small>
+        </h4>
 
-    <div style="margin-top: 20px !important" class="p-1">
-        <form action="{{ $action }}" method="{{ $method }}">
-            @csrf
+        <x-profile.publishyourwork.menu />
 
-            {{-- display the validation errors --}}
-            <x-form.errors />
+        <div class="mt-20 p-1">
+            <form action="{{ $action }}" method="{{ $method }}" {{ $attributes }}>
+                @csrf
 
-            {{ $slot}}
-        </form>
-    </div>
-</section>
+                {{-- display the validation errors --}}
+                <x-form.errors />
+
+                {{ $slot }}
+            </form>
+        </div>
+    </section>
+</x-layout>

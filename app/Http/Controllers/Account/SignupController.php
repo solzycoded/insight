@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 
+// USE CASE controller
 class SignupController extends Controller
 {
     // CREATE

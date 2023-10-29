@@ -1,8 +1,8 @@
 @php
-    $menuItems = ['personal details', 'organization', 'address', 'journal', 'manuscript & authors'];
+    $menuItems = ['personal details', 'organization', 'journal', 'manuscript', 'authors'];
 @endphp
 
-<div class="d-flex justify-content-left pb-1 border-bottom" style="margin-top: 20px !important;">
+<div class="d-flex justify-content-left mb-1 border-bottom p-0" style="overflow-x: auto; margin-top: 20px !important">
 
     @foreach ($menuItems as $i => $item)
         <x-profile.publishyourwork.menuitem :i="$i + 1" :name="$item" />

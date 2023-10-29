@@ -1,6 +1,5 @@
 <x-layout>
-    @include ('._header')
-
+    
     <section id="log-in">
         <x-form.section :action="'/login'" :method="'POST'" :header="['title' => 'Log In', 'description' => 'you need to login, to pubish your work.']">
 

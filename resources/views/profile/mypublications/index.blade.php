@@ -1,0 +1,1 @@
+<x-profile.mypublications.index />

@@ -19,7 +19,10 @@
     
                 @auth
                     <li class="nav-item text-white">
-                        <a class="nav-link text-white" href="/login">Logout</a>
+                        <form action="/log-out" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-transparent nav-link text-white" href="/login">Logout</button>
+                        </form>
                     </li>
                 @else
                     <li class="nav-item text-white">

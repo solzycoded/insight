@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('manuscript_files', function (Blueprint $table) {
+        Schema::create('manuscript_authors', function (Blueprint $table) {
             $table->id();
-            $table->text("file");
+            $table->string("name", 120);
             $table->foreignId('manuscript_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('manuscript_file_type_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manuscript_files');
+        Schema::dropIfExists('manuscript_authors');
     }
 };

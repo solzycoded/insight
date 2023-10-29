@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
-
 use App\Models\OrganizationType;
 use App\Models\UserOrganization;
 
-class UserOrganizationController extends Controller
+class UserOrganizationController extends PublishYourWorkController
 {
     // CREATE
-    public function create(){
-        // CHECK if the previous step (1), has already been filled, before proceeding to allow user create their organization
+    public function create(){ // CHECK if the previous step (1), has already been filled, before proceeding to allow user create their organization
 
-        // 1. return "true" if user has profile details, else return false and store it in "hasProfile"
-        $hasProfile = isset(auth()->user()->profile->id);
+        // 1. return "true" if user has profile details, else return to the previous step
+        $userAccessGranted = $this->allowAccess(2);
 
         // 2. proceed to step 2 (organization), if user has "profile" details
-        if($hasProfile){
+        if(is_bool($userAccessGranted)){
             $organizationTypes = OrganizationType::all();
 
             return view('profile.publishyourwork.organization', compact('organizationTypes'));
         }
 
         // 3. personal details for the user, doesn't exist, so they're prompted to fill it, before proceeding
-        return redirect('/publish-your-work/personal-details')->with('success', 'Kindly provide your personal details! You can\'t skip Step 1.');
+        return $userAccessGranted;
     }
 
     public function store(){
@@ -46,7 +43,7 @@ class UserOrganizationController extends Controller
             'position'        => $attributes['position']
         ]);
 
-        return redirect('/publish-your-work/address')->with('success', 'Your organization was stored successfully!');
+        return redirect('/publish-your-work/journal')->with('success', 'Your organization was stored successfully!');
     }
 
     // OTHERS

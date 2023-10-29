@@ -5,16 +5,12 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 
 use App\Models\Profile;
-use App\Models\Title;
 
 class ProfileController extends Controller
 {
     // CREATE
     public function create(){
-        // get a list of all the titles (e.g. Mr, Mrs, etc.)
-        $titles = Title::all();
-
-        return view('profile.publishyourwork.personaldetails', compact('titles'));
+        return view('profile.publishyourwork.personaldetails');
     }
 
     public function store(){ // store the users input, in the database, but not before validating them

@@ -1,5 +1,4 @@
 <x-layout>
-    @include ('._header')
 
     <section style="padding: 30px 60px">
         {{-- header --}}
@@ -18,5 +17,10 @@
                 </a>
             </div>
         </div>
+
+        @php
+            // forget "journal" session
+            session()->forget('journal');
+        @endphp
     </section>
 </x-layout>

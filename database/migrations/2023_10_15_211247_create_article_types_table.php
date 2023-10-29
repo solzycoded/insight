@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('article_types', function (Blueprint $table) {
             $table->id();
-            $table->string("type")->unique();
+            $table->string("type", 150)->unique();
         });
     }
 

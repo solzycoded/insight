@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('manuscripts', function (Blueprint $table) {
             $table->id();
-            $table->text("title");
+            $table->string("title", 225)->unique();
             $table->text("abstract");
             $table->foreignId('article_type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('journal_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
