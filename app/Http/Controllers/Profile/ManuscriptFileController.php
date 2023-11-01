@@ -13,12 +13,12 @@ class ManuscriptFileController extends Controller
     public function create($manuscriptId){
         // store manuscript files and it's suppporting evidence
         $this->storeFiles('manuscript_file', 'file', $manuscriptId);
-        $this->storeFiles('supporting_files', 'supporting evidence', $manuscriptId);
+        // $this->storeFiles('supporting_files', 'supporting evidence', $manuscriptId);
     }
 
     private function store($file, $manuscriptId, $fileTypeId){
         ManuscriptFile::create([
-            'file'                    => $file,
+            'manuscript_file'         => $file,
             'manuscript_id'           => $manuscriptId,
             'manuscript_file_type_id' => $fileTypeId
         ]);

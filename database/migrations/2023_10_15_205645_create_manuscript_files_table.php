@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('manuscript_files', function (Blueprint $table) {
             $table->id();
-            $table->text("file");
+            $table->text("manuscript_file");
             $table->foreignId('manuscript_id')->constrained()->cascadeOnDelete();
             $table->foreignId('manuscript_file_type_id')->constrained()->cascadeOnDelete();
         });

@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\OrganizationType;
 use App\Models\UserOrganization;
+
+use Illuminate\Http\Request;
+
+use App\Services\UserOrganizationService;
 
 class UserOrganizationController extends PublishYourWorkController
 {
+    private UserOrganizationService $userOrganizationService;
+
+    public function __construct() {
+        $this->userOrganizationService = new UserOrganizationService();
+    }
+
     // CREATE
     public function create(){ // CHECK if the previous step (1), has already been filled, before proceeding to allow user create their organization
 
@@ -15,43 +24,23 @@ class UserOrganizationController extends PublishYourWorkController
 
         // 2. proceed to step 2 (organization), if user has "profile" details
         if(is_bool($userAccessGranted)){
-            $organizationTypes = OrganizationType::all();
-
-            return view('profile.publishyourwork.organization', compact('organizationTypes'));
+            return view('profile.publishyourwork.organization');
         }
 
         // 3. personal details for the user, doesn't exist, so they're prompted to fill it, before proceeding
         return $userAccessGranted;
     }
 
-    public function store(){
-        $attributes       = $this->validateInput();
-
-        // STORE THE ORGANIZATION'S DETAILS
-        $userOrganization = new UserOrganization();
-
-        // 1. create a new organization along with it's type or return the record, if it already exists
-        $organization     = $userOrganization->organization()->firstOrCreate([
-            'organization_type_id' => $attributes['organization_type'],
-            'name'                 => $attributes['organization_name']
-        ]);
-
-        // 2. store the user's position, in the recently created organization
-        $userOrganization->firstOrCreate([
-            'user_id'         => auth()->user()->id,
-            'organization_id' => $organization->id,
-            'position'        => $attributes['position']
-        ]);
+    public function store(Request $request){
+        $this->userOrganizationService->store($request);
 
         return redirect('/publish-your-work/journal')->with('success', 'Your organization was stored successfully!');
     }
 
-    // OTHERS
-    protected function validateInput(){
-        return request()->validate([
-            'organization_type' => 'required|numeric|integer|exists:organization_types,id',
-            'organization_name' => 'required|string|max:200',
-            'position'          => 'nullable|string|max:120'
-        ]);
+    // UPDATE
+    public function update(Request $request, UserOrganization $userOrganization){
+        $this->userOrganizationService->update($request, $userOrganization);
+
+        return redirect('/publish-your-work/journal')->with('success', 'Your organization was successfully updated!');
     }
 }

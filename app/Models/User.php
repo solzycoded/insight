@@ -53,8 +53,8 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function userOrganizations(){
-        return $this->hasMany(UserOrganization::class);
+    public function userOrganization(){
+        return $this->hasOne(UserOrganization::class);
     }
 
     public function manuscripts(){

@@ -13,6 +13,8 @@ class Manuscript extends Model
         'article_type_id', 'journal_id', 'title', 'abstract', 'user_id', 'status_id'
     ];
 
+    public $with = ['manuscriptFiles'];
+
     // CHILDREN
     public function manuscriptFiles(){
         return $this->hasMany(ManuscriptFile::class);

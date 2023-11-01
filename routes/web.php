@@ -54,19 +54,25 @@ Route::middleware('auth')->group(function(){
 
     // PUBLISH YOUR WORK (personal details)
     Route::get('/publish-your-work/personal-details', [ProfileController::class, 'create']);
-    Route::post('/personal-details', [ProfileController::class, 'store'])->name('personal-details');
+    Route::post('/publish-your-work/personal-details', [ProfileController::class, 'store'])->name('personal-details');
+    Route::patch('/publish-your-work/personal-details/{profile}', [ProfileController::class, 'update']);
+    // Route::delete('/admin/tags/{tag}', [AdminTagController::class, 'destroy']);
 
     // PUBLISH YOUR WORK (organization)
     Route::get('/publish-your-work/organization', [UserOrganizationController::class, 'create']);
-    Route::post('/organization', [UserOrganizationController::class, 'store'])->name('organization');
+    Route::post('/publish-your-work/organization', [UserOrganizationController::class, 'store'])->name('organization');
+    Route::patch('/publish-your-work/organization/{userOrganization}', [UserOrganizationController::class, 'update']);
 
     // PUBLISH YOUR WORK (journal)
     Route::get('/publish-your-work/journal', [UserJournalController::class, 'create']);
     Route::post('/publish-your-work/journal', [UserJournalController::class, 'store']);
+    Route::patch('/publish-your-work/journal/{journal}', [UserJournalController::class, 'update']);
+
 
     // PUBLISH YOUR WORK (manuscript)
     Route::get('/publish-your-work/manuscript', [ManuscriptController::class, 'create']);
     Route::post('/publish-your-work/manuscript', [ManuscriptController::class, 'store']);
+    Route::patch('/publish-your-work/manuscript/{manuscript}', [ManuscriptController::class, 'update']);
 
     // PUBLISH YOUR WORK (authors)
     Route::get('/publish-your-work/authors', [ManuscriptAuthorController::class, 'create']);
@@ -76,7 +82,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/my-publications', function () {
         return view('profile.mypublications.index');
     });
-
+ 
     // LOGOUT
     Route::post('/log-out', [SessionController::class, 'destroy'])->middleware('auth');
 });

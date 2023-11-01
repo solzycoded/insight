@@ -20,7 +20,7 @@
 
         @php
             // forget "journal" session
-            session()->forget('journal');
+            session()->forget(['journal', 'manuscript']);
         @endphp
     </section>
 </x-layout>

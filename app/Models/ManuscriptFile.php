@@ -10,7 +10,7 @@ class ManuscriptFile extends Model
     use HasFactory;
 
     public $fillable = [
-        'manuscript_id', 'file', 'manuscript_file_type_id'
+        'manuscript_id', 'manuscript_file', 'manuscript_file_type_id'
     ];
 
     public $timestamps = false;
@@ -21,5 +21,14 @@ class ManuscriptFile extends Model
 
     public function manuscriptFileTypes(){
         return $this->belongsTo(ManuscriptFileType::class);
+    }
+
+    // SCOPES
+    public function filter($manuscriptId, string $fileType){
+        return $this->join('manuscript_file_types', 'manuscript_file_types.id', 'manuscript_files.manuscript_file_type_id')
+            ->where('file_type', $fileType)
+            ->where('manuscript_id', $manuscriptId)
+            ->select(['manuscript_file', 'manuscript_file_type_id', 'manuscript_files.id as id'])
+            ->get();
     }
 }

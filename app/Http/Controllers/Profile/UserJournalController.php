@@ -4,40 +4,37 @@ namespace App\Http\Controllers\Profile;
 
 use App\Models\Journal;
 
+use Illuminate\Http\Request;
+
+use App\Services\UserJournalService;
+
 // use case controller
 class UserJournalController extends PublishYourWorkController
 {
+    private UserJournalService $userJournalService;
+
+    public function __construct() {
+        $this->userJournalService = new UserJournalService();
+    }
+
     // CREATE
     public function create(){
         $userAccessGranted = $this->allowAccess(3);
 
         // since the organization details isn't compulsory, we can proceed to journals
         if(is_bool($userAccessGranted)){
-            $journals = Journal::all();
-
-            return view('profile.publishyourwork.journal', compact('journals'));
+            return view('profile.publishyourwork.journal');
         }
 
         return $userAccessGranted;
     }
 
-    public function store(){
+    public function store(Request $request){
         // the selected journal for the user, has to be stored in a session
-        $attributes = $this->validateInput();
-        session([
-            'journal' => [
-                'id'      => $attributes['journal_id'], 
-                'user_id' => auth()->user()->id
-            ]
-        ]);
-
-        return redirect('/publish-your-work/manuscript')->with('success', 'Your journal was saved successfully!');
+        return $this->userJournalService->store($request);
     }
 
-    // OTHERS
-    protected function validateInput(){
-        return request()->validate([
-            'journal_id' => 'required|numeric|integer|exists:journals,id'
-        ]);
+    public function update(Request $request, Journal $journal){
+        return $this->userJournalService->update($request, $journal);
     }
 }

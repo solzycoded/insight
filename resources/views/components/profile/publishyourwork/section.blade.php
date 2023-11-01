@@ -1,4 +1,4 @@
-@props(['step', 'action', 'method'])
+@props(['step', 'action', 'method', 'type'])
 
 <x-layout>
     {{-- @include ('._header') --}}
@@ -14,6 +14,10 @@
         <div class="mt-20 p-1">
             <form action="{{ $action }}" method="{{ $method }}" {{ $attributes }}>
                 @csrf
+
+                @if(isset($type) && $type=='edit')
+                    @method('PATCH')
+                @endif
 
                 {{-- display the validation errors --}}
                 <x-form.errors />

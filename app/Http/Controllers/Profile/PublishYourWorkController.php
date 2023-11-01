@@ -15,7 +15,7 @@ class PublishYourWorkController extends Controller
     private function steps($step){
         switch ($step) {
             case 2: // check if user has their personal details stored
-                $hasProfile = isset(auth()->user()->profile->id);
+                $hasProfile = !is_null(auth()->user()->profile);
 
                 if(!$hasProfile){
                     return $this->pageRedirect('personal-details', 'Kindly provide your personal details! You can\'t skip Step 1.');
@@ -24,7 +24,7 @@ class PublishYourWorkController extends Controller
                 return true;
 
             case 3: // check if user has an organization stored
-                $hasOrganization = isset(auth()->user()->userOrganizations[0]);
+                $hasOrganization = !is_null(auth()->user()->userOrganization);
 
                 if(!$hasOrganization){
                     return $this->pageRedirect('organization', 'Kindly provide your organization details! You can\'t skip Step 2.');

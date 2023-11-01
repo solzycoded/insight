@@ -1,4 +1,4 @@
-@props(['display'])
+@props(['display', 'value'])
 
 <div>
     <label for="title" class="fw-bold mb-2">{{ $display }}</label>
@@ -10,7 +10,7 @@
 
         <option selected disabled>Select a title</option>
         @foreach ($titles as $title)
-            <option value="{{ $title->id }}" {{ (old('title')==$title->id ? 'selected' : '') }}>{{ $title->name }}</option>
+            <option value="{{ $title->id }}" {{ (old('title')==$title->id || $value==$title->id ? 'selected' : '') }}>{{ $title->name }}</option>
         @endforeach
     </select>
 </div>
