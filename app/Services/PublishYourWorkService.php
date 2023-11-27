@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Services;
 
-use App\Http\Controllers\Controller;
-
-// USE CASE and FACADE controller
-class PublishYourWorkController extends Controller
+class PublishYourWorkService
 {
     // control user access each for each step
-    public function allowAccess($step){
-        return $this->steps($step);
+    public function allowAccess($step, $location){
+        // 1. return "true" if user has profile details, else return to the previous step
+        $userAccessGranted = $this->steps($step);
+
+        // 2. proceed to step 2 (organization), if user has "profile" details
+        if(is_bool($userAccessGranted)){
+            return view($location);
+        }
+
+        // 3. personal details for the user, doesn't exist, so they're prompted to fill it, before proceeding
+        return $userAccessGranted;
     }
 
     private function steps($step){
@@ -36,7 +42,7 @@ class PublishYourWorkController extends Controller
                 $hasSelectedJournal = $this->hasSelectedJournal();
 
                 if($hasSelectedJournal){
-                    $manuscriptId          = session('journal')['id'];
+                    $manuscriptId       = session('journal')['id'];
                     $hasSelectedJournal = \App\Models\Journal::where('id', $manuscriptId)->exists();
                 }
 

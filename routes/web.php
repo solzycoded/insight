@@ -11,6 +11,7 @@ use App\Http\Controllers\Profile\UserOrganizationController;
 use App\Http\Controllers\Profile\UserJournalController;
 use App\Http\Controllers\Profile\ManuscriptController;
 use App\Http\Controllers\Profile\ManuscriptAuthorController;
+use App\Http\Controllers\Profile\PublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,6 @@ use App\Http\Controllers\Profile\ManuscriptAuthorController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
 // GUEST USERS
 Route::middleware('guest')->group(function(){
     // SIGNUP (USE CASE controller)
@@ -35,7 +32,8 @@ Route::middleware('guest')->group(function(){
 
     // LOGIN (USE CASE controller)
     Route::get('/login', [LoginController::class, 'create']); // display the signup page
-    Route::post('/login', [LoginController::class, 'store'])->name('login'); // send the user's details to the signup controller, to add the user to the system
+    Route::get('/', [LoginController::class, 'create']); // display the signup page
+    Route::post('/login', [LoginController::class, 'login'])->name('login'); // send the user's details to the signup controller, to add the user to the system
 
     // PUBLISH YOUR WORK (GUEST)
     Route::get('/publish-your-work', [SignupController::class, 'create']);
@@ -43,9 +41,7 @@ Route::middleware('guest')->group(function(){
 
 // AUTH USERS
 Route::middleware('auth')->group(function(){
-    Route::get('/profile', function () {
-        return view('profile.index');
-    });
+    Route::get('/profile', [PublicationController::class, 'index']);
 
     // PUBLISH YOUR WORK
     Route::get('/publish-your-work', function () {
@@ -68,7 +64,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/publish-your-work/journal', [UserJournalController::class, 'store']);
     Route::patch('/publish-your-work/journal/{journal}', [UserJournalController::class, 'update']);
 
-
     // PUBLISH YOUR WORK (manuscript)
     Route::get('/publish-your-work/manuscript', [ManuscriptController::class, 'create']);
     Route::post('/publish-your-work/manuscript', [ManuscriptController::class, 'store']);
@@ -79,10 +74,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/publish-your-work/authors', [ManuscriptAuthorController::class, 'store']);
 
     // MY PUBLICATIONS
-    Route::get('/my-publications', function () {
-        return view('profile.mypublications.index');
-    });
+    Route::get('/my-publications', [PublicationController::class, 'index']);
+    Route::delete('/my-publications/{publication}', [PublicationController::class, 'destroy']);
  
     // LOGOUT
-    Route::post('/log-out', [SessionController::class, 'destroy'])->middleware('auth');
+    Route::post('/log-out', [SessionController::class, 'destroy']);
 });

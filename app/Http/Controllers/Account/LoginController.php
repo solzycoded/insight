@@ -4,41 +4,26 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Auth;
+use App\Services\LoginService;
+
+use Illuminate\Http\Request;
 
 // USE CASE controller
 class LoginController extends Controller
 {
+    private LoginService $loginService;
+
+    public function __construct() {
+        $this->loginService = new LoginService();
+    }
+
     // CREATE
     public function create(){
         return view('account.login.index');
     }
 
     // CREATE
-    public function store(){
-        $attributes = $this->validateInput();
-
-        // check if user credentials exists in the system
-        if(Auth::attempt($attributes)){
-            // to prevent an attack, via session
-            session()->regenerate();
-
-            // go the the profile page and tell the valid user "welcome back"
-            return redirect('/profile')->with('success', 'Welcome Back!');
-        }
-
-        // authentication failed
-        throw ValidationException::withMessages([
-            'email' => 'Your provided credentials are invalid.'
-        ]);
-    }
-
-    // OTHERS
-    protected function validateInput(){ // validate user input
-        return request()->validate([
-            'email'    => 'required|email|exists:users,email',
-            'password' => 'required|string|max:30'
-        ]);
+    public function login(Request $request){
+        return $this->loginService->login($request);
     }
 }

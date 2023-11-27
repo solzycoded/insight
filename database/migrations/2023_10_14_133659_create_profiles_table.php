@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string("first_name", 80);
             $table->string("last_name", 80);
-            $table->string("phone_number", 14)->unique();
-            $table->string("orcid_id", 20)->unique();
+            $table->string("phone_number", 13)->unique();
+            $table->string("orcid_id", 20)->unique()->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('title_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

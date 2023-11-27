@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\Journal;
 
 use Illuminate\Http\Request;
 
 use App\Services\UserJournalService;
 
-// use case controller
-class UserJournalController extends PublishYourWorkController
+// USE CASE controller
+class UserJournalController extends Controller
 {
     private UserJournalService $userJournalService;
 
@@ -19,14 +21,7 @@ class UserJournalController extends PublishYourWorkController
 
     // CREATE
     public function create(){
-        $userAccessGranted = $this->allowAccess(3);
-
-        // since the organization details isn't compulsory, we can proceed to journals
-        if(is_bool($userAccessGranted)){
-            return view('profile.publishyourwork.journal');
-        }
-
-        return $userAccessGranted;
+        return $this->userJournalService->create();
     }
 
     public function store(Request $request){

@@ -1,9 +1,13 @@
+{{-- Layout is a component that holds the "html" and all of the necessary tags for markup --}}
 <x-layout>
-    
+
     <section id="sign-up">
         <x-form.section :action="'/signup'" :method="'POST'" :header="['title' => 'Sign Up', 'description' => 'you need to signup, to pubish your work.']">
 
             <div>
+                {{-- username input --}}
+                <x-form.input type="text" placeholder="Enter a username" required :name="'username'" :display="'Username'" maxlength="100" />
+
                 {{-- email input --}}
                 <x-form.input type="email" placeholder="Enter your email address" required :name="'email'" :display="'Email Address'" />
 
@@ -24,4 +28,5 @@
 
         </x-form.section>
     </section>
+    
 </x-layout>

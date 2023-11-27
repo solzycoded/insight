@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('manuscript_authors', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 120);
             $table->foreignId('manuscript_id')->constrained()->cascadeOnDelete();
+            $table->string("name", 120);
             $table->timestamps();
         });
     }

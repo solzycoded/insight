@@ -38,4 +38,7 @@
     <script src="/assets/js/request/ajax.js"></script>
     <script src="/assets/js/publishyourwork/authors.js"></script>
     <script src="/assets/js/publishyourwork/publishyourwork.js"></script>
+
+    <script src="/assets/js/mypublications/publication.js"></script>
+    <script src="/assets/js/mypublications/mypublications.js"></script>
 </html>

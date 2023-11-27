@@ -8,14 +8,36 @@ use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
 
-class ManuscriptService
+class ManuscriptService extends PublishYourWorkService
 {
+    private ManuscriptFileService $manuscriptFileService;
+
+    public function __construct() {
+        $this->manuscriptFileService = new ManuscriptFileService;
+    }
+
     // CREATE
+    public function create(){
+        $userAccessGranted = $this->allowAccess(4, 'profile.publishyourwork.manuscript');
+
+        return $userAccessGranted;
+    }
+
     public function store($request){
+        // store manuscript details
+        $manuscript = $this->createManuscript($request);
+
+        // store manuscript file
+        $this->manuscriptFileService->create($manuscript->id);
+
+        // let the system be made aware that, a manuscript has been created and the user is ready to move to the next step
+        $this->createSession($manuscript);
+    }
+
+    private function createManuscript($request){
         $attributes = $this->validateInput($request);
 
-        // store manuscript details
-        $manuscript = Manuscript::create([
+        $manuscript = Manuscript::firstOrCreate([
             'article_type_id' => $attributes['article_type'],
             'journal_id'      => session('journal')['id'],
             'title'           => $attributes['manuscript_title'],
@@ -23,9 +45,6 @@ class ManuscriptService
             'user_id'         => auth()->user()->id,
             'status_id'       => (\App\Models\Status::firstWhere('name', 'pending')->id)
         ]);
-
-        // let the system be made aware that, a manuscript has been created and the user is ready to move to the next step
-        $this->createSession($manuscript);
 
         return $manuscript;
     }
@@ -40,6 +59,14 @@ class ManuscriptService
 
     // UPDATE
     public function update(Request $request, Manuscript $manuscript){
+        // update manuscript
+        $this->updateManuscript($request, $manuscript);
+
+        // update manuscriptfile
+        $this->manuscriptFileService->update($request, $manuscript->id);
+    }
+
+    private function updateManuscript($request, $manuscript){
         $attributes = $this->validateInput($request, $manuscript);
 
         $manuscript->title           = $attributes['manuscript_title'];
@@ -47,8 +74,9 @@ class ManuscriptService
         $manuscript->title           = $attributes['manuscript_title'];
         $manuscript->abstract        = $attributes['manuscript_abstract'];
 
-        $manuscript->save();
+        $manuscript->save(); 
     }
+
 
     // OTHERS
     protected function validateInput($request, ?Manuscript $manuscript = null){

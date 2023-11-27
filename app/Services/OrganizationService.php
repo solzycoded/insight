@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Services;
 
-use App\Http\Controllers\Controller;
 use App\Models\Organization;
 
-class OrganizationController extends Controller
+class OrganizationService
 {
     // CREATE
     public function store($attributes){

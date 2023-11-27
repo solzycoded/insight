@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\UserOrganization;
 
 use Illuminate\Http\Request;
 
 use App\Services\UserOrganizationService;
 
-class UserOrganizationController extends PublishYourWorkController
+// USE CASE and FACADE controller
+class UserOrganizationController extends Controller
 {
     private UserOrganizationService $userOrganizationService;
 
@@ -18,17 +21,7 @@ class UserOrganizationController extends PublishYourWorkController
 
     // CREATE
     public function create(){ // CHECK if the previous step (1), has already been filled, before proceeding to allow user create their organization
-
-        // 1. return "true" if user has profile details, else return to the previous step
-        $userAccessGranted = $this->allowAccess(2);
-
-        // 2. proceed to step 2 (organization), if user has "profile" details
-        if(is_bool($userAccessGranted)){
-            return view('profile.publishyourwork.organization');
-        }
-
-        // 3. personal details for the user, doesn't exist, so they're prompted to fill it, before proceeding
-        return $userAccessGranted;
+        return $this->userOrganizationService->create();
     }
 
     public function store(Request $request){

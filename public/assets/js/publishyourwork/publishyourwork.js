@@ -1,7 +1,8 @@
 $(function(){
     const authors = new Authors();
 
-    authors.add();
+    authors.addAuthorOnClickAdd(); // add the author to the list, when user clicks the "add" button
+    authors.addAuthorOnEnter(); // add the author the the list, when the user clicks on "ENTER"
     authors.request();
 });
 

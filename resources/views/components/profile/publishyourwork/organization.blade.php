@@ -17,9 +17,9 @@
 
                     <option selected disabled>Select your organization type</option>
                     @foreach ($organizationTypes as $organizationType)
-                        <option value="{{ $organizationType->id }}" {{ (old('organization_type')==$organizationType->id || $organization->id==$organizationType->id ? 'selected' : '') }}>{{ $organizationType->type }}</option>
+                        <option value="{{ $organizationType->id }}" {{ (old('organization_type')==$organizationType->id || (!empty($editLink) && $organization->organization->organization_type_id==$organizationType->id) ? 'selected' : '') }}>{{ $organizationType->type }}</option>
                     @endforeach
-                </select>
+                </select> 
             </div>
 
             {{-- organizations input --}}

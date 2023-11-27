@@ -3,37 +3,32 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Services\SignupService;
+
+use Illuminate\Http\Request;
 
 // USE CASE controller
 class SignupController extends Controller
 {
+    // initialize the service class
+    private SignupService $signupService;
+
+    public function __construct() {
+        $this->signupService = new SignupService();
+    }
+
     // CREATE
-    public function create(){
+    public function create(){ // display the "signup" view
         return view('account.signup.index');
     }
 
-    public function store(){
-        $attributes = $this->validateInput();
+    // get the user's request, pass it to the sign up service. The "store" function, in the signup service, will
+    // a. validate the user input
+    // b. create new user
+    // c. log user into the system
+    public function store(Request $request){
+        $user = $this->signupService->store($request);
 
-        // create user
-        $user = User::create([
-            'email'    => $attributes['email'],
-            'password' => $attributes['password']
-        ]);
-
-        // login the user into the system
-        auth()->login($user);
-
-        return redirect('/profile')->with('success', 'Your account has been created');
-    }
-
-    // OTHERS
-    protected function validateInput(){ // validate user input
-        return request()->validate([
-            'email'       => 'required|email|unique:users,email',
-            'password'    => 'required|string|max:30',
-            're_password' => 'required|string|same:password',
-        ]);
+        return redirect('/profile')->with('success', 'Your account has been created. Welcome to Insight, ' . $user->username);
     }
 }

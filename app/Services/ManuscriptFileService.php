@@ -1,13 +1,13 @@
-<?php
+<?php 
 
-namespace App\Http\Controllers\Profile;
-
-use App\Http\Controllers\Controller;
+namespace App\Services;
 
 use App\Models\ManuscriptFile;
 use App\Models\ManuscriptFileType;
 
-class ManuscriptFileController extends Controller
+use Illuminate\Support\Facades\File;
+
+class ManuscriptFileService
 {
     // CREATE
     public function create($manuscriptId){
@@ -46,6 +46,28 @@ class ManuscriptFileController extends Controller
         // store the file and return the url, to the file path
         $file = $file->store('manuscripts/' . $type);
 
+        // store the record (file, manuscript id and file type) in the database
         $this->store($file, $manuscriptId, $fileTypeId);
+    }
+
+    // UPDATE
+    public function update($request, $manuscriptId){
+        $this->storeFiles('manuscript_file', 'file', $manuscriptId);
+        
+        if($request->hasFile('manuscript_file')){
+            $this->destroy($manuscriptId);
+        }
+    }
+
+    // DESTROY
+    private function destroy($manuscriptId){
+        // delete record from database
+        $manuscriptFile     = ManuscriptFile::firstWhere('manuscript_id', $manuscriptId);
+        $manuscriptFilePath = $manuscriptFile->manuscript_file; // get the file path from database
+
+        $manuscriptFile->delete(); 
+
+        // delete file from storage
+        File::delete('storage/' . $manuscriptFilePath);
     }
 }

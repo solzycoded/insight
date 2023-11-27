@@ -1,12 +1,16 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use App\Models\Journal;
 
-class UserJournalService
+class UserJournalService extends PublishYourWorkService
 {
     // CREATE
+    public function create(){
+        return $this->allowAccess(3, 'profile.publishyourwork.journal');
+    }
+
     public function store($request){
         // the selected journal for the user, has to be stored in a session
         return $this->storeJournalAsSession($request, 'The journal you selected was saved successfully!');

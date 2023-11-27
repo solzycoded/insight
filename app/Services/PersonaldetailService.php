@@ -9,9 +9,13 @@ class PersonaldetailService
 {
     // CREATE
     public function store($request){
+        $this->createPersonalDetails($request);
+    }
+
+    private function createPersonalDetails($request){
         $attributes = $this->validateInput($request);
 
-        // only create the new row, if the details don't exist
+        // only create the new row, if the details don't already exist
         Profile::firstOrCreate([
             'user_id'      => auth()->user()->id,
             'title_id'     => $attributes['title'],
@@ -26,13 +30,7 @@ class PersonaldetailService
     public function update($request, $profile){
         $attributes = $this->validateInput($request, $profile);
 
-        $profile->title_id     = $attributes['title'];
-        $profile->first_name   = $attributes['first_name'];
-        $profile->last_name    = $attributes['last_name'];
-        $profile->phone_number = $attributes['phone_number'];
-        $profile->orcid_id     = $attributes['orcid_id'];
-
-        $profile->save();
+        $profile->update($attributes);
     }
 
     // VALIDATION LOGIC
@@ -43,10 +41,9 @@ class PersonaldetailService
             'title'        => 'required|numeric|integer|exists:titles,id',
             'first_name'   => 'required|string|max:80',
             'last_name'    => 'required|string|max:80',
-            'phone_number' => ['required', 'numeric', 'integer', 'max_digits:14', Rule::unique('profiles', 'phone_number')->ignore($profile)],
-            'orcid_id'     => ['required', 'numeric', 'integer', 'min_digits:16', 'max_digits:20', Rule::unique('profiles', 'orcid_id')->ignore($profile)]
+            'phone_number' => ['required', 'numeric', 'integer', 'digits:13', Rule::unique('profiles', 'phone_number')->ignore($profile)],
+            'orcid_id'     => ['nullable', 'numeric', 'integer', 'min_digits:16', 'max_digits:20', Rule::unique('profiles', 'orcid_id')->ignore($profile)]
         ]);
     }
 }
-
 

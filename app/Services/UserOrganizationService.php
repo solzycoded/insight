@@ -4,11 +4,14 @@ namespace App\Services;
 
 use App\Models\UserOrganization;
 
-use App\Http\Controllers\Profile\OrganizationController;
-
-class UserOrganizationService
+class UserOrganizationService extends PublishYourWorkService
 {
     // CREATE
+    public function create(){
+        // check if user has permission, to view the "organization" page
+        return $this->allowAccess(2, 'profile.publishyourwork.organization');
+    }
+
     public function store($request){
         $attributes = $this->validateInput($request);
 
@@ -27,19 +30,19 @@ class UserOrganizationService
 
     // UPDATE
     public function update($request, $userOrganization){
-        $attributes = $this->validateInput($request);
+        $attributes   = $this->validateInput($request);
 
         // create organization or return the existing organization, if it already exists
         $organization = $this->storeOrganization($attributes);
-
-        $userOrganization->organization_id      = $organization->id;
-        $userOrganization->position             = $attributes['position'];
+-
+        $userOrganization->organization_id = $organization->id;
+        $userOrganization->position        = $attributes['position'];
 
         $userOrganization->save();
     }
 
     private function storeOrganization($attributes){ // create organization
-        return (new OrganizationController())->store($attributes);
+        return (new OrganizationService())->store($attributes);
     }
 
     // VALIDATION LOGIC

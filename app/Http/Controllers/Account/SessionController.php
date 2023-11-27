@@ -4,16 +4,21 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 
+use App\Services\SessionService;
+
 //  FACADE controller X PURE FABRICATION??
 class SessionController extends Controller
 {
+    private SessionService $sessionService;
+
+    public function __construct() {
+        $this->sessionService = new SessionService();
+    }
+
     // DELETE
-    public function destroy(){ // logout the user from the system
-        $profile = auth()->user()->profile;
-        $name    = isset($profile->id) ? (', ' . $profile->title->name . ' ' . $profile->last_name) : '';
+    public function destroy(){ // log the user out of the system
+        $response = $this->sessionService->destroy();
 
-        auth()->logout();
-
-        return redirect('/')->with('success', 'Goodbye ' . $name . '!');
+        return redirect('/')->with('success', $response);
     }
 }

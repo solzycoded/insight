@@ -5,14 +5,14 @@ class Ajax{
         this.data = data;
     }
 
-    request(successful = function(){}, failure = function(){}){
+    request(successful = function(){}, failure = function(){}, fields = null){
         $.ajax({
             type: this.type,
             url: this.url,
             data: this.data,
             success: function(response){
                 if(response.success){
-                    successful(response);
+                    successful(response, fields);
                 }
                 else{
                     failure(response);

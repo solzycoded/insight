@@ -13,11 +13,15 @@ class Manuscript extends Model
         'article_type_id', 'journal_id', 'title', 'abstract', 'user_id', 'status_id'
     ];
 
-    public $with = ['manuscriptFiles'];
+    public $with = ['manuscriptAuthors', 'articleType', 'journal', 'status'];
 
     // CHILDREN
     public function manuscriptFiles(){
         return $this->hasMany(ManuscriptFile::class);
+    }
+    
+    public function manuscriptAuthors(){
+        return $this->hasMany(ManuscriptAuthor::class);
     }
 
     // PARENTS
@@ -35,5 +39,16 @@ class Manuscript extends Model
 
     public function status(){
         return $this->belongsTo(Status::class);
+    }
+
+    // SCOPES
+    public function scopeFilter($query, $filter){
+        $query->when($filter ?? false, 
+            fn($query, $filter) => 
+                $query->whereHas('status',
+                    fn($query) => 
+                        $query->where('name', $filter)
+            )
+        );
     }
 }
