@@ -8,7 +8,6 @@ use App\Models\Journal;
 use App\Models\Title;
 use App\Models\OrganizationType;
 use App\Models\ArticleType;
-use App\Models\ManuscriptFileType;
 use App\Models\Status;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->seedTitles();
         $this->seedOrganizationTypes();
         $this->seedArticleTypes();
-        $this->seedManuscriptFileTypes();
         $this->seedStatus();
     }
 
@@ -67,16 +65,6 @@ class DatabaseSeeder extends Seeder
         foreach ($articleTypes as $type) {
             ArticleType::create([
                 'type' => $type
-            ]);
-        }
-    }
-
-    private function seedManuscriptFileTypes(){
-        $types = ['file', 'supporting evidence'];
-
-        foreach ($types as $type) {
-            ManuscriptFileType::create([
-                'file_type' => $type
             ]);
         }
     }

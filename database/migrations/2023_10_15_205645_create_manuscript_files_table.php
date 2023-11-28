@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->text("manuscript_file");
             $table->foreignId('manuscript_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('manuscript_file_type_id')->constrained()->cascadeOnDelete();
         });
     }
 

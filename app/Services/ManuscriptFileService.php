@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\ManuscriptFile;
-use App\Models\ManuscriptFileType;
 
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +15,10 @@ class ManuscriptFileService
         // $this->storeFiles('supporting_files', 'supporting evidence', $manuscriptId);
     }
 
-    private function store($file, $manuscriptId, $fileTypeId){
+    private function store($file, $manuscriptId){
         ManuscriptFile::create([
             'manuscript_file'         => $file,
-            'manuscript_id'           => $manuscriptId,
-            'manuscript_file_type_id' => $fileTypeId
+            'manuscript_id'           => $manuscriptId
         ]);
     }
 
@@ -28,26 +26,25 @@ class ManuscriptFileService
         // check if the selected file exists on the device
         if(request()->hasFile($name)){
             $files      = request()->file($name); // store the files
-            $fileTypeId = ManuscriptFileType::firstWhere('file_type', $type)->id;
 
             // IF the files are multiple (i.e. more than one), store each, one after the other
             if(is_array($files)){
                 foreach ($files as $file) {
-                    $this->storeFile($file, $type, $manuscriptId, $fileTypeId);
+                    $this->storeFile($file, $type, $manuscriptId);
                 }
             }
             else{ // ELSE if the file is a single file
-                $this->storeFile($files, $type, $manuscriptId, $fileTypeId);
+                $this->storeFile($files, $type, $manuscriptId);
             }
         }
     }
 
-    private function storeFile($file, $type, $manuscriptId, $fileTypeId){
+    private function storeFile($file, $type, $manuscriptId){
         // store the file and return the url, to the file path
         $file = $file->store('manuscripts/' . $type);
 
         // store the record (file, manuscript id and file type) in the database
-        $this->store($file, $manuscriptId, $fileTypeId);
+        $this->store($file, $manuscriptId);
     }
 
     // UPDATE

@@ -30,6 +30,7 @@ class ManuscriptController extends Controller
     }
 
     // UPDATE
+    // receive the user's input, as well as the manuscript they want to edit and send it through "manuscriptservice" class
     public function update(Request $request, Manuscript $manuscript){
         $this->manuscriptService->update($request, $manuscript);
 

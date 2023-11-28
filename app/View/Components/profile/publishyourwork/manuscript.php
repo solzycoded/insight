@@ -31,8 +31,7 @@ class manuscript extends Component
             'articleTypes'              => \App\Models\ArticleType::all(),
             'journal'                   => \App\Models\Journal::find(session('journal')['id']),
             'manuscript'                => $manuscript,
-            'manuscriptFile'            => $this->manuscriptFiles($manuscript, 'file'),
-            'manuscriptSupportingFiles' => $this->manuscriptFiles($manuscript, 'supporting evidence')
+            'manuscriptFile'            => $this->manuscriptFiles($manuscript),
         ]);
     }
 
@@ -44,7 +43,7 @@ class manuscript extends Component
         return new ManuscriptModel();
     }
 
-    private function manuscriptFiles($manuscript, string $fileType){
-        return isset($manuscript->manuscriptFiles[0]) ? (new \App\Models\ManuscriptFile())->filter($manuscript->id, $fileType) : [];
+    private function manuscriptFiles($manuscript){
+        return isset($manuscript->manuscriptFiles[0]) ? (new \App\Models\ManuscriptFile())->filter($manuscript->id) : [];
     }
 }

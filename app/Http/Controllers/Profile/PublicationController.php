@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Services\PublicationService;
 
+// FACADE controller
 class PublicationController extends Controller
 {
     private PublicationService $publicationService;
@@ -29,6 +30,10 @@ class PublicationController extends Controller
 
     // DELETE
     public function destroy(Request $request, Manuscript $publication){
-        return $this->publicationService->destroy($publication);
+        $deleted = $this->publicationService->destroy($publication);
+
+        return response()->json([
+            'success' => $deleted
+        ]);
     }
 }

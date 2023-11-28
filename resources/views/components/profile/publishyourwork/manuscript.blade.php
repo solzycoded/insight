@@ -45,22 +45,6 @@
                         </div>
                     @endif
                 </div>
-
-                {{-- <div class="mb-3">
-                    <label for="formFileMultiple" class="form-label fw-bold">Supporting Files <small class="text-secondary">(Select any supporting evidence (videos, document, etc.) that you'd like to use, to back-up your manuscript)</small></label>
-                    <input class="form-control" type="file" id="formFileMultiple" name="supporting_files[]" accept=".pdf,.docx,.doc,.mp4,.avi|video/*,image/*" multiple>
-
-                    @if(count($manuscriptSupportingFiles) > 0)
-                        <hr>
-                        <div class="manuscript-files container-fluid p-0">
-                            <div class="row">
-                                @foreach ($manuscriptSupportingFiles as $file)
-                                    <x-profile.publishyourwork.edit-file :manuscriptFile="$manuscriptFile[0]" class="col-12" />
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-                </div> --}}
             </div>
         </div>
 
