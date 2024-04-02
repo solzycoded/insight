@@ -1,9 +1,9 @@
 @php
     $editLink = isset($manuscript->id) ? ('/' . $manuscript->id) : '';
 @endphp
-
+ 
 <x-profile.publishyourwork.section :step="4" :action="'/publish-your-work/manuscript' . $editLink" :method="'POST'" enctype="multipart/form-data" :type="(!empty($editLink) ? 'edit' : 'create')">
-
+ 
     <div class="container-fluid p-0">
         <div class="row">
             <div class="mb-3 col-12">

@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/publish-your-work', function () {
         return view('profile.publishyourwork.index');
     });
-
+ 
     // PUBLISH YOUR WORK (personal details)
     Route::get('/publish-your-work/personal-details', [ProfileController::class, 'create']);
     Route::post('/publish-your-work/personal-details', [ProfileController::class, 'store'])->name('personal-details');

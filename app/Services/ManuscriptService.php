@@ -15,7 +15,7 @@ class ManuscriptService extends PublishYourWorkService
     public function __construct() {
         $this->manuscriptFileService = new ManuscriptFileService;
     }
-
+ 
     // CREATE
     public function create(){
         $userAccessGranted = $this->allowAccess(4, 'profile.publishyourwork.manuscript');
@@ -45,7 +45,7 @@ class ManuscriptService extends PublishYourWorkService
             'user_id'         => auth()->user()->id,
             'status_id'       => (\App\Models\Status::firstWhere('name', 'pending')->id)
         ]);
-
+ 
         return $manuscript;
     }
 
